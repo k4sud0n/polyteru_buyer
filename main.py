@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.edge import service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -80,8 +80,13 @@ time.sleep(1)
 driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
 driver.find_element(By.XPATH, '//button[contains(text(), "전액 사용")]').click()
 
-driver.find_element(By.XPATH, '//span[contains(text(), "가상 계좌")]').click()
+driver.find_element(By.XPATH, '//span[contains(text(), "카카오페이")]').click()
+driver.find_element(By.XPATH, '/html/body/div[3]/div/div[2]/div/div[2]/div[5]/div[2]/button').click()
 
-
-print('결제완료!')
-
+# 카카오페이
+time.sleep(2.5)
+driver.find_element(By.CLASS_NAME, 'kakaotalk').click()
+time.sleep(0.5)
+driver.find_element(By.ID, 'userPhone').send_keys(config['KAKAOPAY']['PHONENUMBER'])
+driver.find_element(By.ID, 'userBirth').send_keys(config['KAKAOPAY']['BIRTH'])
+driver.find_element(By.CLASS_NAME, 'btn_payask').click()
